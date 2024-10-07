@@ -1,0 +1,51 @@
+#Criar um sistema bancário com as operações: sacar, depositar e visualizar extrato.
+#Depósito: 1.Depositar apenas valores positivos; 2.Todos os depósitos devem ser armazenados em uma variável e exibidos na operação de extrato
+#Saque: Limitado a 3 saques diários com limite máximo de 500 reais por saque. Caso não tenha o saldo na conta, deverá conter uma mensagem informando não haver saldo para a ação
+#Todos os saques devem ser armazenados em uma variável e exibidos na operação de extrato
+#Extrato: Todos depósitos e saques na conta. No fim da listagem deve ser exibido o saldo atual da conta
+#Se não tiver sido realizada nenhuma ação, informar ao usuário: "Não foram realizadas movimentações"
+#Valores devem ser informados em R$XXXX.XX
+
+
+saldo = 1100
+saques_diarios = 0
+extrato = ""
+acao = -1 
+
+while acao !=0:
+    acao = int(input("Qual ação deseja realizar?\n[1]sacar\n[2]depositar\n[3]visualizar extratos\n[0]Sair\n"))
+    if acao == 1:
+        if saques_diarios > 3:
+            print("Limites diários de saques atingidos\n")
+        else:
+            valor_saque = float(input("Qual valor deseja sacar?\nR$"))
+            if valor_saque > saldo:
+                print("Saldo insuficiente!\n")
+            elif valor_saque > 500:
+                print("Valor acima do Limite permitido\n")
+            else:
+                print ("Pegue o dinheiro\n")
+                saldo -= valor_saque
+                saques_diarios +=1
+                extrato += f"Saque de R${valor_saque:.2f} reais.\n"
+    elif acao == 2:
+        valor_deposito = float(input("Quanto irá depositar?\nR$"))
+        if valor_deposito < 0:
+            print("Não é possível depositar valores negativos!\n")
+        elif valor_deposito > 3000:
+            print("Para valores acima de 3000.00 reais, depositar diretamente na agência.\n")
+        else:
+            print("Deposite o dinheiro!\n")
+            saldo += valor_deposito
+            extrato += f"Depósito de R${valor_deposito:.2f} reais.\n"
+    elif acao == 3:
+        if extrato == "":
+            print("Não foram realizadas movimentações\n")
+        else:
+            print(f"As ações executadas nessa conta foram:\n{extrato}\nSeu saldo é de R${saldo:.2f}\n")
+    elif acao != 1 and acao !=2 and acao !=3 and acao !=0:
+        print("Ação inválida!\n") 
+else:
+    print("Volte sempre!")
+
+   
